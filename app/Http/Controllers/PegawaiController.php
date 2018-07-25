@@ -36,6 +36,7 @@ class PegawaiController extends Controller
       'tanggal_request' => date("d-m-Y H:i:s"),
       'jumlah_data' => $list->count(),
       'unit_id' => $unit->satkerId,
+      'unit_nama' => $unit->satkerNama,
       'data' => $list
     ]);
   }
