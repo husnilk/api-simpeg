@@ -19,4 +19,8 @@ $app->get('/key', function() {
     return str_random(32);
 });
 
-$app->get('/api/pegawais', 'PegawaiController@index');
+
+$app->group(['prefix' => 'api'], function () use ($app) {
+  $app->get('pegawais', 'PegawaiController@index');
+  $app->get('pegawais/unit/{unit}', 'PegawaiController@pegawai_unit');
+});

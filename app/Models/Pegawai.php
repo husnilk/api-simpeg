@@ -13,16 +13,16 @@ class Pegawai extends Model
   public static function list()
   {
     $pegawais = Pegawai::all([
-      'pub_pegawai.pegId as id',
-      'pub_pegawai.pegNip as nip',
-      'pub_pegawai.pegNama as nama',
-      'pub_pegawai.pegNidn as nidn',
-      'pub_pegawai.pegTglLahir as tanggal_lahir',
-      'pub_pegawai.pegTmpLahirTeks as tempat_lahir',
-      'pub_pegawai.pegGender as jenis_kelamin',
-      'pub_pegawai.pegKatPegawai as kategori',
-      'pub_pegawai.pegStatrId as jenis_pegawai',
-      'pub_pegawai.pegNPWP as npwp'
+      'pegId as id',
+      'pegNip as nip',
+      'pegNama as nama',
+      'pegNidn as nidn',
+      'pegTglLahir as tanggal_lahir',
+      'pegTmpLahirTeks as tempat_lahir',
+      'pegGender as jenis_kelamin',
+      'pegKatPegawai as kategori',
+      'pegStatrId as jenis_pegawai',
+      'pegNPWP as npwp'
     ]);
 
     return $pegawais->filter(function($p){
@@ -41,21 +41,19 @@ class Pegawai extends Model
                 ->wherePivot('satkerpegAktif', 'Aktif');
   }
 
-  // public function getUnitIdAttribute()
-  // {
-  //   if ($sat = $this->units->first()) {
-  //     return $sat->satkerId;
-  //   }
-  //
-  //   return null;
-  // }
-  //
-  // public function getUnitNamaAttribute()
-  // {
-  //   if ($sat = $this->units->first()) {
-  //     return $sat->satkerNama;
-  //   }
-  //
-  //   return null;
-  // }
+  public static function pegawai_unit($unit)
+  {
+    return $unit->pegawais()->get([
+      'pegId as id',
+      'pegNip as nip',
+      'pegNama as nama',
+      'pegNidn as nidn',
+      'pegTglLahir as tanggal_lahir',
+      'pegTmpLahirTeks as tempat_lahir',
+      'pegGender as jenis_kelamin',
+      'pegKatPegawai as kategori',
+      'pegStatrId as jenis_pegawai',
+      'pegNPWP as npwp'
+    ]);
+  }
 }
