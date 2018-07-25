@@ -56,4 +56,28 @@ class Pegawai extends Model
       'pegNPWP as npwp'
     ]);
   }
+
+  public function detail()
+  {
+    $data = new Pegawai();
+    $data->id = $this->pegId;
+    $data->nip = $this->pegNip;
+    $data->nama = $this->pegNama;
+    $data->nidn = $this->pegNidn;
+    $data->tanggal_lahir = $this->pegTglLahir;
+    $data->tempat_lahir = $this->pegTmpLahirTeks;
+    $data->jenis_kelamin = $this->pegGender;
+    $data->kategori = $this->pegKatPegawai;
+    $data->jenis_pegawai = $this->pegStatrId;
+    $data->npwp = $this->pegNPWP;
+    $data->agama = $this->pegAgamaId;
+    $data->no_hp = $this->pegNoHp;
+    $data->email = $this->pegEmail;
+    $data->unit = $this->units()->select([
+                    'satkerId as id',
+                    'satkerNama as nama'
+                  ])->first();
+
+    return $data;
+  }
 }

@@ -23,4 +23,5 @@ $app->get('/key', function() {
 $app->group(['prefix' => 'api'], function () use ($app) {
   $app->get('pegawais', 'PegawaiController@index');
   $app->get('pegawais/unit/{unit}', 'PegawaiController@pegawai_unit');
+  $app->get('pegawais/{id}', 'PegawaiController@detail');
 });

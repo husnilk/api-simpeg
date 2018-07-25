@@ -40,4 +40,16 @@ class PegawaiController extends Controller
       'data' => $list
     ]);
   }
+
+  public function detail($id)
+  {
+    $pegawai = Pegawai::find($id);
+    if(!$pegawai)
+      return response()->json([
+        'status' => 404,
+        'description' => 'Pegawai not found!'
+      ]);
+
+    return response()->json($pegawai->detail());
+  }
 }
