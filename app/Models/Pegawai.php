@@ -41,6 +41,41 @@ class Pegawai extends Model
                 ->wherePivot('satkerpegAktif', 'Aktif');
   }
 
+  public function pendidikans()
+  {
+    return $this->belongsToMany(Pendidikan::class, 'sdm_pendidikan', 'pddkPegKode', 'pddkTkpddkrId')
+                ->withPivot(
+                  'pddkId as pendidikan_id',
+                  'pddkInstitusi as institusi',
+                  'pddkNegaraId as negara_institusi',
+                  'pddkTglMulaiDinas as tgl_mulai_dinas',
+                  'pddkTglSelesaiDinas as tgl_selesai_dinas',
+                  'pddkThnLulus as tahun_lulus',
+                  'pddkStatusTamat as status_tamat'
+                );
+  }
+
+  public function fungsionals()
+  {
+    return $this->belongsToMany(Fungsional::class, 'sdm_jabatan_fungsional', 'jbtnPegKode', 'jbtnJabfungrId')
+                ->withPivot(
+                  'jbtnId as jabatan_id',
+                  'jbtnTmt as tmt',
+                  'jbtnStatus as jabatan_status'
+                );
+  }
+
+  public function strukturals()
+  {
+    return $this->belongsToMany(Struktural::class, 'sdm_jabatan_struktural', 'jbtnstrukPegKode', 'jbtnJabstrukrId')
+                ->withPivot(
+                  'jbtnstrukId as jabatan_id',
+                  'jbtnstrukTmt as tmt',
+                  'jbtnstrukTglSelesai as tanggal_selesai',
+                  'jbtnstrukStatus as status'
+                );
+  }
+
   public static function pegawai_unit($unit)
   {
     return $unit->pegawais()->get([
@@ -78,6 +113,17 @@ class Pegawai extends Model
                     'satkerNama as nama'
                   ])->first();
 
+    $data->pendidikan = $this->pendidikans()->get([
+                          'pendId as jenjang_id'
+                        ]);
+
+    $data->fungsional = $this->fungsionals()->get([
+                          'jabfungrNama as jabatan'
+                        ]);
+
+    $data->jabatan = $this->strukturals()->get([
+                          'jabstrukrNama as jabatan'
+                        ]);
     return $data;
   }
 }
