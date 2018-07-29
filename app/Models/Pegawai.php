@@ -41,6 +41,11 @@ class Pegawai extends Model
                 ->wherePivot('satkerpegAktif', 'Aktif');
   }
 
+  public function bkds()
+  {
+    return $this->hasMany(Bkd::class, 'bkdPegId', 'pegId');
+  }
+
   public function pendidikans()
   {
     return $this->belongsToMany(Pendidikan::class, 'sdm_pendidikan', 'pddkPegKode', 'pddkTkpddkrId')
