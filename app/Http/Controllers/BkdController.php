@@ -12,7 +12,7 @@ class BkdController extends Controller
     $semester = ucfirst(strtolower($semester));
     $data = Bkd::bySemester($tahun, $semester);
 
-    if(!$data)
+    if(!$data->count())
       return response()->json([
         'status' => 404,
         'description' => 'BKD not found!'
@@ -30,7 +30,7 @@ class BkdController extends Controller
     $semester = ucfirst(strtolower($semester));
     $data = Bkd::byUnit($tahun, $semester, $unit);
 
-    if(!$data)
+    if(!$data->count())
       return response()->json([
         'status' => 404,
         'description' => 'BKD not found!'
