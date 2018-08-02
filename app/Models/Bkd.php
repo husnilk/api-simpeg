@@ -26,6 +26,7 @@ class Bkd extends Model
                 ->get([
                   'bkdId as simpeg_id',
                   'bkdNama as nama',
+                  'bkdPegId as pegawai_id',
                   'bkdNIP as nip',
                   'bkdNoSertifikasi as no_serdos',
                   'bkdFakultas as fakultas',
@@ -45,6 +46,7 @@ class Bkd extends Model
          });
       })->get([
         'bkdId as simpeg_id',
+        'bkdPegId as pegawai_id',
         'bkdNama as nama',
         'bkdNIP as nip',
         'bkdNoSertifikasi as no_serdos',
