@@ -15,16 +15,17 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-$app->get('/key', function() {
+$app->get('/key', function () {
     return str_random(32);
 });
 
 
 $app->group(['prefix' => 'api'], function () use ($app) {
-  $app->get('pegawais', 'PegawaiController@index');
-  $app->get('pegawais/unit/{unit}', 'PegawaiController@pegawai_unit');
-  $app->get('pegawais/{id}', 'PegawaiController@detail');
-  $app->get('bkds/{tahun}/{semester}', 'BkdController@list_by_semester');
-  $app->get('bkds/{tahun}/{semester}/{unit}', 'BkdController@list_by_unit');
-  $app->get('bkd/{tahun}/{semester}/{pegawai}', 'BkdController@list_by_pegawai');
+    $app->get('pegawais', 'PegawaiController@index');
+    $app->get('pegawais/unit/{unit}', 'PegawaiController@pegawai_unit');
+    $app->get('pegawais/search/{keyword}', 'PegawaiController@search');
+    $app->get('pegawai/{id}', 'PegawaiController@detail');
+    $app->get('bkds/{tahun}/{semester}', 'BkdController@list_by_semester');
+    $app->get('bkds/{tahun}/{semester}/{unit}', 'BkdController@list_by_unit');
+    $app->get('bkd/{tahun}/{semester}/{pegawai}', 'BkdController@list_by_pegawai');
 });
