@@ -149,9 +149,9 @@ class Pegawai extends Model
 
         return $pegawais->filter(function ($p) {
             $p->unit = Pegawai::find($p->id)->units()->select([
-        'satkerId as id',
-        'satkerNama as nama'
-      ])->first();
+                'satkerId as id',
+                'satkerNama as nama'
+            ])->first();
 
             return $p;
         });

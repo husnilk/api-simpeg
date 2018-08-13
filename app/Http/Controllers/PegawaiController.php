@@ -41,14 +41,15 @@ class PegawaiController extends Controller
 
     public function search($keyword)
     {
+        $keyword = urldecode($keyword);
         $list = Pegawai::search($keyword);
 
         // $list = Pegawai::list();
         return response()->json([
-      'tanggal_request' => date("d-m-Y H:i:s"),
-      'jumlah_data' => $list->count(),
-      'data' => $list
-    ], 200);
+            'tanggal_request' => date("d-m-Y H:i:s"),
+            'jumlah_data' => $list->count(),
+            'data' => $list
+        ], 200);
     }
 
     public function detail($id)
