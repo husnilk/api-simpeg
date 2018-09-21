@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bkd extends Model
 {
-  protected $table = 'sdm_bkd';
-  protected $primaryKey = 'bkdId';
+    protected $table = 'sdm_bkd';
+    protected $primaryKey = 'bkdId';
 
-  public function pegawai()
-  {
-    return $this->belongsTo(Pegawai::class, 'bkdPegId', 'pegId');
-  }
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'bkdPegId', 'pegId');
+    }
 
-  public function kinerjas()
-  {
-    return $this->hasMany(Kinerja::class, 'bkdpendBkdId', 'bkdId');
-  }
+    public function kinerjas()
+    {
+        return $this->hasMany(Kinerja::class, 'bkdpendBkdId', 'bkdId');
+    }
 
-  public static function bySemester($tahun, $semester)
-  {
-    return Bkd::where('bkdTahunAkademik', $tahun)
+    public static function bySemester($tahun, $semester)
+    {
+        return Bkd::where('bkdTahunAkademik', $tahun)
                 ->where('bkdSemester', $semester)
                 ->get([
                   'bkdId as simpeg_id',
@@ -34,17 +34,17 @@ class Bkd extends Model
                   'bkdKesimpulan1 as hasil_1',
                   'bkdKesimpulan1 as hasil_2'
                 ]);
-  }
+    }
 
-  public static function byUnit($tahun, $semester, $unit)
-  {
-    return Bkd::where('bkdTahunAkademik', $tahun)
+    public static function byUnit($tahun, $semester, $unit)
+    {
+        return Bkd::where('bkdTahunAkademik', $tahun)
        ->where('bkdSemester', $semester)
-       ->whereHas('pegawai', function($q) use ($unit){
-         $q->whereHas('units', function($x) use($unit){
-           $x->where('satkerId', $unit);
-         });
-      })->get([
+       ->whereHas('pegawai', function ($q) use ($unit) {
+           $q->whereHas('units', function ($x) use ($unit) {
+               $x->where('satkerId', $unit);
+           });
+       })->get([
         'bkdId as simpeg_id',
         'bkdPegId as pegawai_id',
         'bkdNama as nama',
@@ -55,18 +55,19 @@ class Bkd extends Model
         'bkdKesimpulan1 as hasil_1',
         'bkdKesimpulan1 as hasil_2'
       ]);
-  }
+    }
 
-  public function byPegawai($tahun, $semester)
-  {
-      $data = new Bkd();
-      $data->tahun = $tahun;
-      $data->periode = $semester;
-      $data->nama = $this->bkdNama;
-      $data->nip = $this->bkdNIP;
-      $data->no_serdos = $this->bkdNoSertifikasi;
-      $data->fakultas = $this->bkdFakultas;
-      $data->kinerja = $this->kinerjas()->get([
+    public function byPegawai($tahun, $semester)
+    {
+        $data = new Bkd();
+        $data->tahun = $tahun;
+        $data->periode = $semester;
+        $data->nama = $this->bkdNama;
+        $data->nip = $this->bkdNIP;
+        $data->kesimpulan = $this->kesimpulan();
+        $data->no_serdos = $this->bkdNoSertifikasi;
+        $data->fakultas = $this->bkdFakultas;
+        $data->kinerja = $this->kinerjas()->get([
         'bkdpendBidBkd as bidang_bkd',
         'bkdpendJenisKegiatan as kegiatan',
         'bkdpendMasaPenugasan as masa_penugasan',
@@ -76,6 +77,15 @@ class Bkd extends Model
         'bkdPendSaranAsesor2 as saran_asesor_2'
       ]);
 
-      return $data;
-  }
+        return $data;
+    }
+
+    public function kesimpulan()
+    {
+        if ($this->bkdKesimpulan1 == 'M' && $this->bkdKesimpulan2 == 'M') {
+            return 'M';
+        } else {
+            return 'T';
+        }
+    }
 }
