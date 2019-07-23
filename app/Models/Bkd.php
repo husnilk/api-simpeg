@@ -22,39 +22,39 @@ class Bkd extends Model
     public static function bySemester($tahun, $semester)
     {
         return Bkd::where('bkdTahunAkademik', $tahun)
-                ->where('bkdSemester', $semester)
-                ->get([
-                    'bkdId as simpeg_id',
-                    'bkdNama as nama',
-                    'bkdPegId as pegawai_id',
-                    'bkdNIP as nip',
-                    'bkdNoSertifikasi as no_serdos',
-                    'bkdFakultas as fakultas',
-                    'bkdJenis as jenis',
-                    'bkdKesimpulan1 as hasil_1',
-                    'bkdKesimpulan1 as hasil_2'
-                ]);
+            ->where('bkdSemester', $semester)
+            ->get([
+                'bkdId as simpeg_id',
+                'bkdNama as nama',
+                'bkdPegId as pegawai_id',
+                'bkdNIP as nip',
+                'bkdNoSertifikasi as no_serdos',
+                'bkdFakultas as fakultas',
+                'bkdJenis as jenis',
+                'bkdKesimpulan1 as hasil_1',
+                'bkdKesimpulan1 as hasil_2'
+            ]);
     }
 
     public static function byUnit($tahun, $semester, $unit)
     {
         return Bkd::where('bkdTahunAkademik', $tahun)
-       ->where('bkdSemester', $semester)
-       ->whereHas('pegawai', function ($q) use ($unit) {
-           $q->whereHas('units', function ($x) use ($unit) {
-               $x->where('satkerId', $unit);
-           });
-       })->get([
-           'bkdId as simpeg_id',
-           'bkdPegId as pegawai_id',
-           'bkdNama as nama',
-           'bkdNIP as nip',
-           'bkdNoSertifikasi as no_serdos',
-           'bkdFakultas as fakultas',
-           'bkdJenis as jenis',
-           'bkdKesimpulan1 as hasil_1',
-           'bkdKesimpulan1 as hasil_2'
-       ]);
+            ->where('bkdSemester', $semester)
+            ->whereHas('pegawai', function ($q) use ($unit) {
+                $q->whereHas('units', function ($x) use ($unit) {
+                    $x->where('satkerId', $unit);
+                });
+            })->get([
+                'bkdId as simpeg_id',
+                'bkdPegId as pegawai_id',
+                'bkdNama as nama',
+                'bkdNIP as nip',
+                'bkdNoSertifikasi as no_serdos',
+                'bkdFakultas as fakultas',
+                'bkdJenis as jenis',
+                'bkdKesimpulan1 as hasil_1',
+                'bkdKesimpulan1 as hasil_2'
+            ]);
     }
 
     public function byPegawai($tahun, $semester)
