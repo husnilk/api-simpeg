@@ -37,6 +37,7 @@ class BkdController extends Controller
       ], 404);
 
     return response()->json([
+	  'status' => 200,
       'tahun' => $tahun,
       'periode' => $semester,
       'unit_id' => $unit,

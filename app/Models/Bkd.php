@@ -73,6 +73,7 @@ class Bkd extends Model
         'bkdpendMasaPenugasan as masa_penugasan',
         'bkdpendBebanKerjaSks as sks_beban',
         'bkdpendKinerjaSks as sks_kinerja',
+        'bkdpendRekomendasi as rekomendasi',
         'bkdPendSaranAsesor1 as saran_asesor_1',
         'bkdPendSaranAsesor2 as saran_asesor_2'
       ]);
