@@ -60,6 +60,7 @@ class Bkd extends Model
     public function byPegawai($tahun, $semester)
     {
         $data = new Bkd();
+        $data->status = 200;
         $data->tahun = $tahun;
         $data->periode = $semester;
         $data->nama = $this->bkdNama;
@@ -74,6 +75,8 @@ class Bkd extends Model
             'bkdpendBebanKerjaSks as sks_beban',
             'bkdpendKinerjaSks as sks_kinerja',
             'bkdpendRekomendasi as rekomendasi',
+            'bkdpendKinerjaBukti as bukti_kinerja',
+            'bkdpendFileBukti as file_bukti_kinerja',
             'bkdPendSaranAsesor1 as saran_asesor_1',
             'bkdPendSaranAsesor2 as saran_asesor_2'
         ]);

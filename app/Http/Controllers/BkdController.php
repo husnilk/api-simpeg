@@ -55,7 +55,7 @@ class BkdController extends Controller
       return response()->json([
         'status' => 404,
         'description' => 'BKD not found!'
-      ], 404);
+      ], 200);
 
     return response()->json($bkd->byPegawai($tahun, $semester), 200);
   }
