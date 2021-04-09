@@ -21,7 +21,7 @@ class Bkd extends Model
 
     public static function bySemester($tahun, $semester)
     {
-        return Bkd::where('bkdTahunAkademik', $tahun)
+        return Bkd::with('kinerjas')->where('bkdTahunAkademik', $tahun)
             ->where('bkdSemester', $semester)
             ->get([
                 'bkdId as simpeg_id',
@@ -32,7 +32,7 @@ class Bkd extends Model
                 'bkdFakultas as fakultas',
                 'bkdJenis as jenis',
                 'bkdKesimpulan1 as hasil_1',
-                'bkdKesimpulan1 as hasil_2'
+                'bkdKesimpulan2 as hasil_2'
             ]);
     }
 
