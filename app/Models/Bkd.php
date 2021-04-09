@@ -68,7 +68,7 @@ class Bkd extends Model
         $data->kesimpulan = $this->kesimpulan();
         $data->no_serdos = $this->bkdNoSertifikasi;
         $data->fakultas = $this->bkdFakultas;
-        $data->kinerja = $this->kinerjas()->get([
+        $data->kinerja = $this->kinerjas()->orderBy('bkdpendBidBkd')->get([
             'bkdpendBidBkd as bidang_bkd',
             'bkdpendJenisKegiatan as kegiatan',
             'bkdpendMasaPenugasan as masa_penugasan',
@@ -76,7 +76,7 @@ class Bkd extends Model
             'bkdpendKinerjaSks as sks_kinerja',
             'bkdpendRekomendasi as rekomendasi',
             'bkdpendKinerjaBukti as bukti_kinerja',
-            'bkdpendFileBukti as file_bukti_kinerja',
+            'bkdpendFile as file_bukti_kinerja',
             'bkdPendSaranAsesor1 as saran_asesor_1',
             'bkdPendSaranAsesor2 as saran_asesor_2'
         ]);
