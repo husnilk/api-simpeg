@@ -12,7 +12,6 @@ class BkdController extends Controller
     public function list_by_semester(Request $request, $tahun, String $semester)
     {
         $semester = ucfirst(strtolower($semester));
-//    $data = Bkd::bySemester($tahun, $semester);
         $sql = "SELECT 
             bkdId as simpeg_id,
             bkdNama as nama,
@@ -24,7 +23,7 @@ class BkdController extends Controller
             bkdKesimpulan1 as hasil_1,
             bkdKesimpulan2 as hasil_2,
             CASE WHEN bkdKesimpulan1='M' and bkdKesimpulan2='M' THEN 'M' ELSE 'T' END AS kesimpulan,
-            round(SUM(if(bkdpendRekomendasi IN (2, 3), bkdpendKinerjaSks, 0)), 5) AS total_sks
+            ROUND(SUM(if(bkdpendRekomendasi IN (2, 3), replace(bkdpendKinerjaSks,',', '.'), 0)), 5) AS total_sks
         FROM sdm_bkd 
         LEFT JOIN sdm_bkd_bidang ON sdm_bkd_bidang.bkdpendBkdId=sdm_bkd.bkdId
         WHERE sdm_bkd.bkdTahunAkademik=? 
@@ -42,6 +41,7 @@ class BkdController extends Controller
 
         return response()->json([
             'tahun' => $tahun,
+            'status' => 200,
             'periode' => $semester,
             'data' => $data
         ], 200);
